@@ -1,4 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
+
 import styled from "styled-components";
 
 const Header = styled.div`
@@ -9,7 +10,7 @@ const Title = styled.h1`
     padding: 3.5em;
     color: #7fffd4;
 `;
-export const HeaderComponent = () => {
+export const HeaderComponent: FC = () => {
     return (
         <Header>
             <Title>THINH_LE_VAN</Title>

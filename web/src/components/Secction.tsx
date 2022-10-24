@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { AdovocateComponent } from './Advocates';
 import { SearchComponent } from './Search';
@@ -14,11 +14,33 @@ const AdovecateList = styled.div`
     grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
     width: 100%;
 `;
-export const SectionComponent = () => {
+export const SectionComponent: FC = () => {
     return (
         <Section>
             <SearchComponent />
             <AdovecateList>
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
+                <AdovocateComponent />
                 <AdovocateComponent />
             </AdovecateList>
         </Section>
