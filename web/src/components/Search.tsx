@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Search = styled.div``;
+const Search = styled.div`
+    margin: 2em 0;
+`;
 
 const InputSearch = styled.input`
     background-color: #2b3031;

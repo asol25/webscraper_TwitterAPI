@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
-// import morgan from 'morgan';
+import { apiRouter } from "./src/routers/ApiRouters";
 dotenv.config();
 const app: Application = express();
 const PORT = 8000;
@@ -21,11 +21,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", async (req: Request, res: Response): Promise<Response> => {
-    return res.status(200).send({
-        message: "Hello World!",
-    });
-});
+app.get("/", apiRouter);
 
 try {
     httpServer.listen(PORT, () => {

@@ -4,9 +4,6 @@ import styled from "styled-components";
 const Wrapper = styled.div`
     display: block;
     color: #fff;
-    @media (max-width: 800px) {
-        grid-template-columns: 1fr;
-    };
 `;
 
 const Information = styled.div`
