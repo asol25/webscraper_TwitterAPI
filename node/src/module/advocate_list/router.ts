@@ -7,7 +7,10 @@ const getAdvocateList = async (req: Request, res: Response) => {
 
     const response = await fetch(urlGetAdvocateList, {
         method: "GET",
-    })
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
 
     const json = await response.json();
 
@@ -23,6 +26,9 @@ const getAdvocateByPage = async (req: Request, res: Response) => {
     const urlGetAdvocateList = `https://cados.up.railway.app/advocates?page=${page}`;
     const response = await fetch(urlGetAdvocateList, {
         method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
     })
 
     const json = await response.json();

@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Advocate } from "../type";
 
 const Wrapper = styled.div`
     display: block;
@@ -17,18 +19,30 @@ const Description = styled.div`
     padding: 1em 0;
 `;
 
-export const AdovocateComponent: FC = () => {
+const Picture = styled.img`
+    width: 50px;
+    heigh: 50px;
+    object-fit: contain;
+    border-radius: 100%;
+`;
+interface IProps {
+    advocate: Advocate
+}
+
+export const AdovocateComponent: FC<IProps> = (props) => {
+    const { advocate } = props;
+
     return (
         <Wrapper>
             <Information>
-                {/* <img className="cado__preview__image" src="https://pbs.twimg.com/profile_images/1133122333290291200/xV9gO-D6_400x400.jpg"> */}
-                    <div className="name--wrapper">
-                        <h4 className="name">Scott Hanselman  </h4>
-                        {/* <a href="https://twitter.com/shanselman" target="_blank" className="username"> @shanselman</a> */}
-                    </div>
+                <Picture src={advocate.profile_pic}></Picture>
+                <div>
+                    <h4>{advocate.name}</h4>
+                    <a href={advocate.twitter} target="_blank" rel="noreferrer"> @{advocate.username}</a>
+                </div>
             </Information>
             <Description>
-                <p>Code, OSS, STEM, Beyoncé, 🏴󠁧󠁢󠁳󠁣󠁴󠁿🇿🇼#T1D,@Hanselminutes inclusive tech podcast! MSFT Developer Division Community #DevRel🐹🌮YouTube+TikTok My opinions</p>
+                <p>{advocate.bio}</p>
             </Description>
         </Wrapper>
     )

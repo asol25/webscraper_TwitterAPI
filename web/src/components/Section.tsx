@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { device } from '../style/device';
 import { Advocate, IAdvocate } from '../type';
 import { AdovocateComponent } from './Advocates';
+import { NextPageComponent } from './NextPage';
 import { SearchComponent } from './Search';
 
 const Section = styled.section`
@@ -27,23 +28,33 @@ const AdovecateList = styled.div`
     grid-template-columns: repeat(3, 1fr);
   };
 `;
+
 export const SectionComponent: FC = () => {
   const [adovecateList, setAdovecateList] = useState<IAdvocate | undefined>();
 
-  useEffect(() => {
-    fetch('http://localhost:8000/advocates/', {
+  const getAdovecateList = async (isApiAdvocateList: boolean, setAdovecateList: React.Dispatch<React.SetStateAction<IAdvocate | undefined>>) => {
+    const response = await fetch('http://localhost:8000/advocates/', {
       method: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json"
       }
-    })
-      .then((response) => response.json())
-      .then((json) => setAdovecateList(json));
+    });
+    const json = await response.json();
+    if (isApiAdvocateList) {
+      setAdovecateList(json);
+    }
+  }
+
+  useEffect(() => {
+    let isApiAdvocateList = true;
+    getAdovecateList(isApiAdvocateList, setAdovecateList);
+    return () => {
+      isApiAdvocateList = false;
+    }
   }, [setAdovecateList]);
 
-  console.log(adovecateList);
-
+  
   return (
     <Section>
       <SearchComponent />
@@ -51,10 +62,11 @@ export const SectionComponent: FC = () => {
         {
           adovecateList?.advocates.map((item: Advocate) => (
             // eslint-disable-next-line react/jsx-key
-            <AdovocateComponent />
+            <AdovocateComponent advocate={item} key={item.username} />
           ))
         }
       </AdovecateList>
+      <NextPageComponent pagination={adovecateList?.pagination}/>
     </Section>
   )
 }
