@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { device } from '../style/device';
 import { Advocate, IAdvocate } from '../type';
@@ -30,10 +30,11 @@ const AdovecateList = styled.div`
 `;
 
 export const SectionComponent: FC = () => {
+  const currentPage = useRef(1);
   const [adovecateList, setAdovecateList] = useState<IAdvocate | undefined>();
 
-  const getAdovecateList = async (isApiAdvocateList: boolean, setAdovecateList: React.Dispatch<React.SetStateAction<IAdvocate | undefined>>) => {
-    const response = await fetch('http://localhost:8000/advocates/', {
+  const getAdovecateList = async (currentPage:  React.MutableRefObject<number>) => {
+    const response = await fetch(`http://localhost:8000/advocates/${currentPage.current}`, {
       method: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -41,19 +42,24 @@ export const SectionComponent: FC = () => {
       }
     });
     const json = await response.json();
-    if (isApiAdvocateList) {
-      setAdovecateList(json);
-    }
+    return json;
   }
 
   useEffect(() => {
     let isApiAdvocateList = true;
-    getAdovecateList(isApiAdvocateList, setAdovecateList);
+    (async () => {
+      if (isApiAdvocateList) {
+        setAdovecateList(await getAdovecateList(currentPage));
+      }
+    })()
     return () => {
       isApiAdvocateList = false;
     }
-  }, [setAdovecateList]);
+  });
 
+  const handleCurrentPage = (page: number) => {
+    currentPage.current = page;
+  };
   
   return (
     <Section>
@@ -61,12 +67,11 @@ export const SectionComponent: FC = () => {
       <AdovecateList>
         {
           adovecateList?.advocates.map((item: Advocate) => (
-            // eslint-disable-next-line react/jsx-key
             <AdovocateComponent advocate={item} key={item.username} />
           ))
         }
       </AdovecateList>
-      <NextPageComponent pagination={adovecateList?.pagination}/>
+      <NextPageComponent changeCurrentPage={handleCurrentPage} pagination={adovecateList?.pagination} />
     </Section>
   )
 }
