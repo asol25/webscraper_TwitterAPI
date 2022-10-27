@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Advocate } from "../type";
 
@@ -17,6 +16,7 @@ const Information = styled.div`
 
 const Description = styled.div`
     padding: 1em 0;
+    font-size: 18px;
 `;
 
 const Picture = styled.img`
@@ -25,21 +25,25 @@ const Picture = styled.img`
     object-fit: contain;
     border-radius: 100%;
 `;
+
+const Cusomter = styled.div`
+    font-size: 22px;
+`;
 interface IProps {
     advocate: Advocate
 }
 
 export const AdovocateComponent: FC<IProps> = (props) => {
     const { advocate } = props;
-
+    
     return (
         <Wrapper>
             <Information>
                 <Picture src={advocate.profile_pic}></Picture>
-                <div>
+                <Cusomter>
                     <h4>{advocate.name}</h4>
                     <a href={advocate.twitter} target="_blank" rel="noreferrer"> @{advocate.username}</a>
-                </div>
+                </Cusomter>
             </Information>
             <Description>
                 <p>{advocate.bio}</p>

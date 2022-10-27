@@ -6,7 +6,7 @@ import { apiRouter } from "./src/routers/ApiRouters";
 import cors from "cors";
 dotenv.config();
 const app: Application = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(morgan('combined'));

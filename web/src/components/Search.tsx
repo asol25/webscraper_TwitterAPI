@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const Search = styled.div`
@@ -22,12 +22,20 @@ const Button = styled.input`
     padding: 1em;
 `;
 
+interface IProps {
+    inputSearch: string,
+    changeInputSearch: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
+}
 
-export const SearchComponent = () => {
+export const SearchComponent: FC<IProps> = (props) => {
+    const { inputSearch, changeInputSearch, handleSubmit } = props;
     return (
         <Search>
-            <InputSearch type="search" placeholder='Search advocates...' />
+          <form onSubmit={(event) => handleSubmit(event)}>
+          <InputSearch value={inputSearch} onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeInputSearch(event)} type="search" placeholder='Search advocates...' />
             <Button className="btn btn--primary" type="submit" value="Search" />
-        </Search>
+          </form>
+        </Search >
     )
 }
